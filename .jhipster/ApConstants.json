@@ -1,0 +1,22 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "key",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "value",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180418081319",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "ap_constants",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination",
+    "microserviceName": "hcmCoreMicroservice",
+    "searchEngine": false
+}
