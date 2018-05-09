@@ -1,0 +1,22 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180509090539",
+    "dto": "mapstruct",
+    "service": "serviceClass",
+    "entityTableName": "rg_currency",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no",
+    "microserviceName": "hcmCoreMicroservice",
+    "searchEngine": false
+}
