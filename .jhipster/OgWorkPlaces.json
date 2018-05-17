@@ -1,0 +1,48 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "idParent",
+            "otherEntityName": "ogWorkPlaces",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "ogWorkPlaces"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "idWorkPlaceTypes",
+            "otherEntityName": "ogWorkPlaceTypes",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "ogWorkPlaces"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180511092012",
+    "entityTableName": "og_work_places",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "microserviceName": "hcmCoreMicroservice"
+}

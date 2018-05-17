@@ -1,0 +1,56 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "idLegalEntity",
+            "otherEntityName": "leLegalEntities",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "ogOrganizations"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "idParent",
+            "otherEntityName": "ogOrganizations",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "ogOrganizations"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "idOrganizationType",
+            "otherEntityName": "ogOrgTypes",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "ogOrganizations"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180511092014",
+    "entityTableName": "og_organizations",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "microserviceName": "hcmCoreMicroservice"
+}

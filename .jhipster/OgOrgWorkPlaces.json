@@ -1,0 +1,29 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "idOrganization",
+            "otherEntityName": "ogOrganizations",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "ogOrgWorkPlaces"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "idWorkPlace",
+            "otherEntityName": "ogWorkPlaces",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "ogOrgWorkPlaces"
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20180511092016",
+    "entityTableName": "og_org_work_places",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "microserviceName": "hcmCoreMicroservice"
+}

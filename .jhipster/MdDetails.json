@@ -1,0 +1,52 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "idHeader",
+            "otherEntityName": "mdHeaders",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "mdDetails"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "idDataType",
+            "otherEntityName": "mdDataTypes",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "mdDetails"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "mandatory",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180511092009",
+    "entityTableName": "md_details",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "microserviceName": "hcmCoreMicroservice"
+}

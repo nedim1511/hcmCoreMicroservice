@@ -1,0 +1,46 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "idWorkPlace",
+            "otherEntityName": "ogWorkPlaces",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "ogWorkPlaceSkills"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "idSkill",
+            "otherEntityName": "rgSkills",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "ogWorkPlaceSkills"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "idGrade",
+            "otherEntityName": "rgSkillGrades",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "ogWorkPlaceSkills"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dateSkill",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20180511092010",
+    "entityTableName": "og_work_place_skills",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "microserviceName": "hcmCoreMicroservice"
+}

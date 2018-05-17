@@ -1,0 +1,211 @@
+
+entity RgRegionTypes {
+	id Integer required,
+    code String required,
+	name String required,
+    description String
+}
+
+entity RgRegions {
+	id Integer required,
+    code String required,
+	name String required,
+    description String,
+}
+
+entity LeLegalEntityTypes {
+	id Integer required,
+	code String required,
+	name String required,
+    description String
+}
+entity LeLegalEntities {
+ 	id Integer required,
+    code String required,
+    name String,
+    idNumber String,
+    dutyNumber String,
+    address String required,
+    postalNumber String required,
+}
+
+entity RgQualifications {
+	id Integer required,
+	code String required,
+	name String required,
+	description String
+}
+
+entity DmDocumentLinks{
+	id Integer required,
+    documentName String,
+    fileName String,
+    filePath String,
+    uri String,
+    documentBlob Blob
+}
+
+entity DmDocumentTypes{
+	id Integer required,
+	code String required,
+	name String required,
+	description String
+}
+
+entity RgSkills {
+	id Integer required,
+    code String required,
+	name String required,
+    description String,
+    field String
+}
+
+entity RgSkillGrades {
+	id Integer required,
+    code String required,
+	name String required,
+    grade Integer required,
+    description String,
+    numerical String
+}
+
+entity RgSchools {
+	id Integer required,
+    code String required,
+	name String required,
+    description String,
+    address String
+}
+entity RgIdentificationTypes{
+	id Integer required,
+	code String required,
+	name String required,
+	description String
+}
+
+entity RgFamilyRoles{
+	id Integer required,
+	code String required,
+	name String required,
+	description String,
+    uniqueRelation String
+}
+entity RgContactTypes{
+	id Integer required,
+	code String required,
+	name String required,
+	description String
+}
+
+entity MdDataTypes{
+	id Integer required,
+	code String required,
+	name String required,
+	description String
+}
+
+entity MdDetailValue{
+	id Integer required,
+	value String required,
+	displayValues String required,
+	ordering Integer
+}
+
+entity MdHeaderTypes{
+	id Integer required,
+	code String required,
+	name String required,
+	description String,
+    modul String
+}
+entity MdHeaders{
+	id Integer required,
+	code String required,
+	name String required,
+	description String
+}
+
+entity MdDetails{
+	id Integer required,
+	code String required,
+	name String required,
+	description String,
+    mandatory String
+}
+
+
+entity OgWorkPlaceSkills {
+	id Integer required,
+	description String,
+    dateSkill LocalDate
+}
+entity OgWorkPlaceTypes {
+	id Integer required,
+	code String required,
+	name String required,
+	description String
+}
+
+entity OgWorkPlaces {
+	id Integer required,
+	code String required,
+	name String required,
+	description String
+}
+
+entity OgOrgTypes {
+	id Integer required,
+	code String required,
+	name String required,
+	description String
+}
+
+entity OgOrganizations {
+	id Integer required,
+	code String required,
+	name String required,
+	description String
+}
+
+
+entity OgOrg {
+	id Integer required,
+	code String required,
+	name String required,
+	description String
+}
+
+entity OgOrgWorkPlaces {
+	id Integer required
+}
+
+
+relationship OneToOne {
+	OgOrg{idOrganizationTypeId(name)} to OgOrgTypes
+    OgOrg{idParentId(name)} to OgOrg
+    OgOrg{idLegalEntityId(name)} to LeLegalEntities
+	OgOrgWorkPlaces{idOrganization(name)} to OgOrganizations
+    OgOrgWorkPlaces{idWorkPlace(name)} to OgWorkPlaces
+    OgOrganizations{idLegalEntity(name)} to LeLegalEntities
+    OgOrganizations{idParent(name)} to OgOrganizations
+    OgOrganizations{idOrganizationType(name)} to OgOrgTypes
+    OgWorkPlaceSkills{idWorkPlace(name)} to OgWorkPlaces
+    OgWorkPlaceSkills{idSkill(name)} to RgSkills
+    OgWorkPlaceSkills{idGrade(name)} to RgSkillGrades
+    OgWorkPlaces{idParent(name)} to OgWorkPlaces
+    OgWorkPlaces{idWorkPlaceTypes(name)} to OgWorkPlaceTypes
+    MdDetailValue{idDetail(name)} to MdDetailValue
+	MdDetails{idHeader(name)} to MdHeaders
+    MdDetails{idDataType(name)} to MdDataTypes
+	MdHeaders{idHeaderType(name)} to MdHeaderTypes
+    RgRegions{idType(name)} to RgRegionTypes
+    RgRegions{idParent(name)} to RgRegions
+	RgSchools{idCity(name)} to RgRegions
+    LeLegalEntities{idEntityType(name)} to LeLegalEntityTypes
+    LeLegalEntities{region(name)} to RgRegions
+}
+
+paginate * with pagination
+dto * with mapstruct
+
+
