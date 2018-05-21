@@ -40,7 +40,7 @@ public class OgWorkPlaces extends AbstractAuditingEntity implements Serializable
     private OgWorkPlaces idParent;
 
     @OneToOne
-    @JoinColumn(name = "id_work_place_types")
+    @JoinColumn(name = "id_work_place_type")
     private OgWorkPlaceTypes idWorkPlaceTypes;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
