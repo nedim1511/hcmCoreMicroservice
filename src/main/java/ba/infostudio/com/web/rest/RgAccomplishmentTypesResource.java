@@ -1,7 +1,9 @@
 package ba.infostudio.com.web.rest;
 
+import ba.infostudio.com.domain.RgAccomplishmentTypes;
+import ba.infostudio.com.repository.RgAccomplishmentTypesRepository;
+import ba.infostudio.com.service.mapper.RgAccomplishmentTypesMapper;
 import com.codahale.metrics.annotation.Timed;
-import ba.infostudio.com.service.RgAccomplishmentTypesService;
 import ba.infostudio.com.web.rest.errors.BadRequestAlertException;
 import ba.infostudio.com.web.rest.util.HeaderUtil;
 import ba.infostudio.com.service.dto.RgAccomplishmentTypesDTO;
@@ -29,10 +31,14 @@ public class RgAccomplishmentTypesResource {
 
     private static final String ENTITY_NAME = "rgAccomplishmentTypes";
 
-    private final RgAccomplishmentTypesService rgAccomplishmentTypesService;
+    private final RgAccomplishmentTypesRepository rgAccomplishmentTypesRepository;
 
-    public RgAccomplishmentTypesResource(RgAccomplishmentTypesService rgAccomplishmentTypesService) {
-        this.rgAccomplishmentTypesService = rgAccomplishmentTypesService;
+    private final RgAccomplishmentTypesMapper rgAccomplishmentTypesMapper;
+
+    public RgAccomplishmentTypesResource(RgAccomplishmentTypesRepository rgAccomplishmentTypesRepository,
+                                         RgAccomplishmentTypesMapper rgAccomplishmentTypesMapper) {
+        this.rgAccomplishmentTypesRepository = rgAccomplishmentTypesRepository;
+        this.rgAccomplishmentTypesMapper = rgAccomplishmentTypesMapper;
     }
 
     /**
@@ -49,7 +55,9 @@ public class RgAccomplishmentTypesResource {
         if (rgAccomplishmentTypesDTO.getId() != null) {
             throw new BadRequestAlertException("A new rgAccomplishmentTypes cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        RgAccomplishmentTypesDTO result = rgAccomplishmentTypesService.save(rgAccomplishmentTypesDTO);
+        RgAccomplishmentTypes res = rgAccomplishmentTypesMapper.toEntity(rgAccomplishmentTypesDTO);
+        RgAccomplishmentTypes resultNonDTO = rgAccomplishmentTypesRepository.save(res);
+        RgAccomplishmentTypesDTO result = rgAccomplishmentTypesMapper.toDto(resultNonDTO);
         return ResponseEntity.created(new URI("/api/rg-accomplishment-types/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -71,7 +79,9 @@ public class RgAccomplishmentTypesResource {
         if (rgAccomplishmentTypesDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        RgAccomplishmentTypesDTO result = rgAccomplishmentTypesService.save(rgAccomplishmentTypesDTO);
+        RgAccomplishmentTypes res = rgAccomplishmentTypesMapper.toEntity(rgAccomplishmentTypesDTO);
+        RgAccomplishmentTypes resultNonDTO = rgAccomplishmentTypesRepository.save(res);
+        RgAccomplishmentTypesDTO result = rgAccomplishmentTypesMapper.toDto(res);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, rgAccomplishmentTypesDTO.getId().toString()))
             .body(result);
@@ -86,7 +96,8 @@ public class RgAccomplishmentTypesResource {
     @Timed
     public List<RgAccomplishmentTypesDTO> getAllRgAccomplishmentTypes() {
         log.debug("REST request to get all RgAccomplishmentTypes");
-        return rgAccomplishmentTypesService.findAll();
+        List<RgAccomplishmentTypes> allAccomplishmentTypes = rgAccomplishmentTypesRepository.findAll();
+        return rgAccomplishmentTypesMapper.toDto(allAccomplishmentTypes);
     }
 
     /**
@@ -99,8 +110,9 @@ public class RgAccomplishmentTypesResource {
     @Timed
     public ResponseEntity<RgAccomplishmentTypesDTO> getRgAccomplishmentTypes(@PathVariable Long id) {
         log.debug("REST request to get RgAccomplishmentTypes : {}", id);
-        Optional<RgAccomplishmentTypesDTO> rgAccomplishmentTypesDTO = rgAccomplishmentTypesService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(rgAccomplishmentTypesDTO);
+        RgAccomplishmentTypes res = rgAccomplishmentTypesRepository.findOne(id);
+        RgAccomplishmentTypesDTO rgAccomplishmentTypesDTO = rgAccomplishmentTypesMapper.toDto(res);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(rgAccomplishmentTypesDTO));
     }
 
     /**
@@ -113,7 +125,7 @@ public class RgAccomplishmentTypesResource {
     @Timed
     public ResponseEntity<Void> deleteRgAccomplishmentTypes(@PathVariable Long id) {
         log.debug("REST request to delete RgAccomplishmentTypes : {}", id);
-        rgAccomplishmentTypesService.delete(id);
+        rgAccomplishmentTypesRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }
