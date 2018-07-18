@@ -15,7 +15,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "at_accomplishment_types")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class RgAccomplishmentTypes implements Serializable {
+public class RgAccomplishmentTypes extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
