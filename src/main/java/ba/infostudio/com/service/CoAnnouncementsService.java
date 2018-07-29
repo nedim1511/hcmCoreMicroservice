@@ -11,6 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.List;
+
 
 /**
  * Service Implementation for managing CoAnnouncements.
@@ -41,6 +44,11 @@ public class CoAnnouncementsService {
         CoAnnouncements coAnnouncements = coAnnouncementsMapper.toEntity(coAnnouncementsDTO);
         coAnnouncements = coAnnouncementsRepository.save(coAnnouncements);
         return coAnnouncementsMapper.toDto(coAnnouncements);
+    }
+
+    public List<CoAnnouncementsDTO> valid(LocalDate currentDate) {
+        List<CoAnnouncements> announcements = coAnnouncementsRepository.findAllByValidToGreaterThanEqualAndValidFromLessThanEqual(currentDate, currentDate);
+        return coAnnouncementsMapper.toDto(announcements);
     }
 
     /**

@@ -1,5 +1,6 @@
 package ba.infostudio.com.web.rest;
 
+import ba.infostudio.com.domain.CoAnnouncements;
 import com.codahale.metrics.annotation.Timed;
 import ba.infostudio.com.service.CoAnnouncementsService;
 import ba.infostudio.com.web.rest.errors.BadRequestAlertException;
@@ -20,6 +21,8 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +38,7 @@ public class CoAnnouncementsResource {
     private static final String ENTITY_NAME = "coAnnouncements";
 
     private final CoAnnouncementsService coAnnouncementsService;
+
 
     public CoAnnouncementsResource(CoAnnouncementsService coAnnouncementsService) {
         this.coAnnouncementsService = coAnnouncementsService;
@@ -95,6 +99,19 @@ public class CoAnnouncementsResource {
         Page<CoAnnouncementsDTO> page = coAnnouncementsService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/co-announcements");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /co-announcements/valid : get valid the coAnnouncements.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of coAnnouncements in body
+     */
+    @GetMapping("/co-announcements/valid")
+    @Timed
+    public ResponseEntity<List<CoAnnouncementsDTO>> getAllValidCoAnnouncements() {
+        log.debug("REST request to get a page of CoAnnouncements");
+        List<CoAnnouncementsDTO> announcements = coAnnouncementsService.valid(LocalDate.now());
+        return new ResponseEntity<>(announcements, null, HttpStatus.OK);
     }
 
     /**

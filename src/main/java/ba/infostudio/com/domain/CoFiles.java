@@ -11,12 +11,12 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * A CoAnnouncements.
+ * A CoFiles.
  */
 @Entity
-@Table(name = "co_announcements")
+@Table(name = "co_files")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class CoAnnouncements extends AbstractAuditingEntity implements Serializable {
+public class CoFiles extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,16 +30,16 @@ public class CoAnnouncements extends AbstractAuditingEntity implements Serializa
     private String title;
 
     @NotNull
-    @Column(name = "message", nullable = false)
-    private String message;
-
-    @NotNull
     @Column(name = "valid_from", nullable = false)
     private LocalDate validFrom;
 
     @NotNull
     @Column(name = "valid_to", nullable = false)
     private LocalDate validTo;
+
+    @NotNull
+    @Column(name = "id_document_link", nullable = false)
+    private Integer idDocumentLink;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -54,7 +54,7 @@ public class CoAnnouncements extends AbstractAuditingEntity implements Serializa
         return title;
     }
 
-    public CoAnnouncements title(String title) {
+    public CoFiles title(String title) {
         this.title = title;
         return this;
     }
@@ -63,24 +63,11 @@ public class CoAnnouncements extends AbstractAuditingEntity implements Serializa
         this.title = title;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public CoAnnouncements message(String message) {
-        this.message = message;
-        return this;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public LocalDate getValidFrom() {
         return validFrom;
     }
 
-    public CoAnnouncements validFrom(LocalDate validFrom) {
+    public CoFiles validFrom(LocalDate validFrom) {
         this.validFrom = validFrom;
         return this;
     }
@@ -93,13 +80,26 @@ public class CoAnnouncements extends AbstractAuditingEntity implements Serializa
         return validTo;
     }
 
-    public CoAnnouncements validTo(LocalDate validTo) {
+    public CoFiles validTo(LocalDate validTo) {
         this.validTo = validTo;
         return this;
     }
 
     public void setValidTo(LocalDate validTo) {
         this.validTo = validTo;
+    }
+
+    public Integer getIdDocumentLink() {
+        return idDocumentLink;
+    }
+
+    public CoFiles idDocumentLink(Integer idDocumentLink) {
+        this.idDocumentLink = idDocumentLink;
+        return this;
+    }
+
+    public void setIdDocumentLink(Integer idDocumentLink) {
+        this.idDocumentLink = idDocumentLink;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -111,11 +111,11 @@ public class CoAnnouncements extends AbstractAuditingEntity implements Serializa
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        CoAnnouncements coAnnouncements = (CoAnnouncements) o;
-        if (coAnnouncements.getId() == null || getId() == null) {
+        CoFiles coFiles = (CoFiles) o;
+        if (coFiles.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), coAnnouncements.getId());
+        return Objects.equals(getId(), coFiles.getId());
     }
 
     @Override
@@ -125,12 +125,12 @@ public class CoAnnouncements extends AbstractAuditingEntity implements Serializa
 
     @Override
     public String toString() {
-        return "CoAnnouncements{" +
+        return "CoFiles{" +
             "id=" + getId() +
             ", title='" + getTitle() + "'" +
-            ", message='" + getMessage() + "'" +
             ", validFrom='" + getValidFrom() + "'" +
             ", validTo='" + getValidTo() + "'" +
+            ", idDocumentLink=" + getIdDocumentLink() +
             "}";
     }
 }
