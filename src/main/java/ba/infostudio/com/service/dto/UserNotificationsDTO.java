@@ -18,9 +18,6 @@ public class UserNotificationsDTO implements Serializable {
     private Long id_job_application;
 
     @NotNull
-    private Long id_job_notification;
-
-    @NotNull
     private String is_read;
 
     private Long notification_templatesId;
@@ -39,14 +36,6 @@ public class UserNotificationsDTO implements Serializable {
 
     public void setId_job_application(Long id_job_application) {
         this.id_job_application = id_job_application;
-    }
-
-    public Long getId_job_notification() {
-        return id_job_notification;
-    }
-
-    public void setId_job_notification(Long id_job_notification) {
-        this.id_job_notification = id_job_notification;
     }
 
     public String getIs_read() {
@@ -74,11 +63,11 @@ public class UserNotificationsDTO implements Serializable {
             return false;
         }
 
-        UserNotificationsDTO userNofitificationsDTO = (UserNotificationsDTO) o;
-        if(userNofitificationsDTO.getId() == null || getId() == null) {
+        UserNotificationsDTO userNotificationsDTO = (UserNotificationsDTO) o;
+        if(userNotificationsDTO.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), userNofitificationsDTO.getId());
+        return Objects.equals(getId(), userNotificationsDTO.getId());
     }
 
     @Override
@@ -91,7 +80,7 @@ public class UserNotificationsDTO implements Serializable {
         return "UserNotificationsDTO{" +
             "id=" + getId() +
             ", id_job_application=" + getId_job_application() +
-            ", id_job_notification=" + getId_job_notification() +
+            ", id_job_notification=" + getNotification_templatesId() +
             ", is_read='" + getIs_read() + "'" +
             "}";
     }

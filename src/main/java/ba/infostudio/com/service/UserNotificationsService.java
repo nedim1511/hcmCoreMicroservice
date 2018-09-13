@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 /**
- * Service Implementation for managing UserNofitifications.
+ * Service Implementation for managing UserNotifications.
  */
 @Service
 @Transactional
@@ -21,43 +21,43 @@ public class UserNotificationsService {
 
     private final Logger log = LoggerFactory.getLogger(UserNotificationsService.class);
 
-    private final UserNotificationsRepository userNofitificationsRepository;
+    private final UserNotificationsRepository userNotificationsRepository;
 
-    private final UserNotificationsMapper userNofitificationsMapper;
+    private final UserNotificationsMapper userNotificationsMapper;
 
-    public UserNotificationsService(UserNotificationsRepository userNofitificationsRepository, UserNotificationsMapper userNofitificationsMapper) {
-        this.userNofitificationsRepository = userNofitificationsRepository;
-        this.userNofitificationsMapper = userNofitificationsMapper;
+    public UserNotificationsService(UserNotificationsRepository userNotificationsRepository, UserNotificationsMapper userNotificationsMapper) {
+        this.userNotificationsRepository = userNotificationsRepository;
+        this.userNotificationsMapper = userNotificationsMapper;
     }
 
     /**
-     * Save a userNofitifications.
+     * Save a userNotifications.
      *
-     * @param userNofitificationsDTO the entity to save
+     * @param userNotificationsDTO the entity to save
      * @return the persisted entity
      */
-    public UserNotificationsDTO save(UserNotificationsDTO userNofitificationsDTO) {
-        log.debug("Request to save UserNotifications : {}", userNofitificationsDTO);
-        UserNotifications userNofitifications = userNofitificationsMapper.toEntity(userNofitificationsDTO);
-        userNofitifications = userNofitificationsRepository.save(userNofitifications);
-        return userNofitificationsMapper.toDto(userNofitifications);
+    public UserNotificationsDTO save(UserNotificationsDTO userNotificationsDTO) {
+        log.debug("Request to save UserNotifications : {}", userNotificationsDTO);
+        UserNotifications userNotifications = userNotificationsMapper.toEntity(userNotificationsDTO);
+        userNotifications = userNotificationsRepository.save(userNotifications);
+        return userNotificationsMapper.toDto(userNotifications);
     }
 
     /**
-     * Get all the userNofitifications.
+     * Get all the userNotifications.
      *
      * @param pageable the pagination information
      * @return the list of entities
      */
     @Transactional(readOnly = true)
     public Page<UserNotificationsDTO> findAll(Pageable pageable) {
-        log.debug("Request to get all UserNofitifications");
-        return userNofitificationsRepository.findAll(pageable)
-            .map(userNofitificationsMapper::toDto);
+        log.debug("Request to get all UserNotifications");
+        return userNotificationsRepository.findAll(pageable)
+            .map(userNotificationsMapper::toDto);
     }
 
     /**
-     * Get one userNofitifications by id.
+     * Get one userNotifications by id.
      *
      * @param id the id of the entity
      * @return the entity
@@ -65,17 +65,17 @@ public class UserNotificationsService {
     @Transactional(readOnly = true)
     public UserNotificationsDTO findOne(Long id) {
         log.debug("Request to get UserNotifications : {}", id);
-        UserNotifications userNofitifications = userNofitificationsRepository.findOne(id);
-        return userNofitificationsMapper.toDto(userNofitifications);
+        UserNotifications userNotifications = userNotificationsRepository.findOne(id);
+        return userNotificationsMapper.toDto(userNotifications);
     }
 
     /**
-     * Delete the userNofitifications by id.
+     * Delete the userNotifications by id.
      *
      * @param id the id of the entity
      */
     public void delete(Long id) {
         log.debug("Request to delete UserNotifications : {}", id);
-        userNofitificationsRepository.delete(id);
+        userNotificationsRepository.delete(id);
     }
 }

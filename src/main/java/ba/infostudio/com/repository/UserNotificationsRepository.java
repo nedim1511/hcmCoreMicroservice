@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.*;
 
 
 /**
- * Spring Data JPA repository for the UserNofitifications entity.
+ * Spring Data JPA repository for the UserNotifications entity.
  */
 @SuppressWarnings("unused")
 @Repository

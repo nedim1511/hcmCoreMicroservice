@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A UserNofitifications.
+ * A Usernotifications.
  */
 @Entity
 @Table(name = "user_notifications")
@@ -28,17 +28,17 @@ public class UserNotifications implements Serializable {
     @Column(name = "id_job_application", nullable = false)
     private Long id_job_application;
 
-    @NotNull
+    /*@NotNull
     @Column(name = "id_job_notification", nullable = false)
     private Long id_job_notification;
-
+    */
     @NotNull
     @Column(name = "is_read", nullable = false)
     private String is_read;
 
     @OneToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
+    @JoinColumn(name = "id_job_notification", unique = true)
     private NotificationTemplates notification_templates;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -62,7 +62,7 @@ public class UserNotifications implements Serializable {
     public void setId_job_application(Long id_job_application) {
         this.id_job_application = id_job_application;
     }
-
+    /*
     public Long getId_job_notification() {
         return id_job_notification;
     }
@@ -75,7 +75,7 @@ public class UserNotifications implements Serializable {
     public void setId_job_notification(Long id_job_notification) {
         this.id_job_notification = id_job_notification;
     }
-
+    */
     public String getIs_read() {
         return is_read;
     }
@@ -111,11 +111,11 @@ public class UserNotifications implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        UserNotifications userNofitifications = (UserNotifications) o;
-        if (userNofitifications.getId() == null || getId() == null) {
+        UserNotifications usernotifications = (UserNotifications) o;
+        if (usernotifications.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), userNofitifications.getId());
+        return Objects.equals(getId(), usernotifications.getId());
     }
 
     @Override
@@ -128,7 +128,7 @@ public class UserNotifications implements Serializable {
         return "UserNotifications{" +
             "id=" + getId() +
             ", id_job_application=" + getId_job_application() +
-            ", id_job_notification=" + getId_job_notification() +
+            ", id_job_notification=" + getNotification_templates() +
             ", is_read='" + getIs_read() + "'" +
             "}";
     }

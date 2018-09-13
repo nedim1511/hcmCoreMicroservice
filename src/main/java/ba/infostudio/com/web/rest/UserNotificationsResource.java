@@ -34,94 +34,94 @@ public class UserNotificationsResource {
 
     private static final String ENTITY_NAME = "UserNotifications";
 
-    private final UserNotificationsService userNofitificationsService;
+    private final UserNotificationsService userNotificationsService;
 
-    public UserNotificationsResource(UserNotificationsService userNofitificationsService) {
-        this.userNofitificationsService = userNofitificationsService;
+    public UserNotificationsResource(UserNotificationsService userNotificationsService) {
+        this.userNotificationsService = userNotificationsService;
     }
 
     /**
-     * POST  /user-nofitifications : Create a new userNofitifications.
+     * POST  /user-notifications : Create a new userNotifications.
      *
-     * @param userNofitificationsDTO the userNofitificationsDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new userNofitificationsDTO, or with status 400 (Bad Request) if the userNofitifications has already an ID
+     * @param userNotificationsDTO the userNotificationsDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new userNotificationsDTO, or with status 400 (Bad Request) if the userNotifications has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PostMapping("/user-nofitifications")
+    @PostMapping("/user-notifications")
     @Timed
-    public ResponseEntity<UserNotificationsDTO> createUserNofitifications(@Valid @RequestBody UserNotificationsDTO userNofitificationsDTO) throws URISyntaxException {
-        log.debug("REST request to save UserNofitifications : {}", userNofitificationsDTO);
-        if (userNofitificationsDTO.getId() != null) {
-            throw new BadRequestAlertException("A new userNofitifications cannot already have an ID", ENTITY_NAME, "idexists");
+    public ResponseEntity<UserNotificationsDTO> createUserNotifications(@Valid @RequestBody UserNotificationsDTO userNotificationsDTO) throws URISyntaxException {
+        log.debug("REST request to save UserNotifications : {}", userNotificationsDTO);
+        if (userNotificationsDTO.getId() != null) {
+            throw new BadRequestAlertException("A new userNotifications cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        UserNotificationsDTO result = userNofitificationsService.save(userNofitificationsDTO);
-        return ResponseEntity.created(new URI("/api/user-nofitifications/" + result.getId()))
+        UserNotificationsDTO result = userNotificationsService.save(userNotificationsDTO);
+        return ResponseEntity.created(new URI("/api/user-notifications/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
     /**
-     * PUT  /user-nofitifications : Updates an existing userNofitifications.
+     * PUT  /user-notifications : Updates an existing userNotifications.
      *
-     * @param userNofitificationsDTO the userNofitificationsDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated userNofitificationsDTO,
-     * or with status 400 (Bad Request) if the userNofitificationsDTO is not valid,
-     * or with status 500 (Internal Server Error) if the userNofitificationsDTO couldn't be updated
+     * @param userNotificationsDTO the userNotificationsDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated userNotificationsDTO,
+     * or with status 400 (Bad Request) if the userNotificationsDTO is not valid,
+     * or with status 500 (Internal Server Error) if the userNotificationsDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PutMapping("/user-nofitifications")
+    @PutMapping("/user-notifications")
     @Timed
-    public ResponseEntity<UserNotificationsDTO> updateUserNofitifications(@Valid @RequestBody UserNotificationsDTO userNofitificationsDTO) throws URISyntaxException {
-        log.debug("REST request to update UserNofitifications : {}", userNofitificationsDTO);
-        if (userNofitificationsDTO.getId() == null) {
-            return createUserNofitifications(userNofitificationsDTO);
+    public ResponseEntity<UserNotificationsDTO> updateUserNotifications(@Valid @RequestBody UserNotificationsDTO userNotificationsDTO) throws URISyntaxException {
+        log.debug("REST request to update UserNotifications : {}", userNotificationsDTO);
+        if (userNotificationsDTO.getId() == null) {
+            return createUserNotifications(userNotificationsDTO);
         }
-        UserNotificationsDTO result = userNofitificationsService.save(userNofitificationsDTO);
+        UserNotificationsDTO result = userNotificationsService.save(userNotificationsDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, userNofitificationsDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, userNotificationsDTO.getId().toString()))
             .body(result);
     }
 
     /**
-     * GET  /user-nofitifications : get all the userNofitifications.
+     * GET  /user-notifications : get all the userNotifications.
      *
      * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and the list of userNofitifications in body
+     * @return the ResponseEntity with status 200 (OK) and the list of userNotifications in body
      */
-    @GetMapping("/user-nofitifications")
+    @GetMapping("/user-notifications")
     @Timed
-    public ResponseEntity<List<UserNotificationsDTO>> getAllUserNofitifications(Pageable pageable) {
-        log.debug("REST request to get a page of UserNofitifications");
-        Page<UserNotificationsDTO> page = userNofitificationsService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/user-nofitifications");
+    public ResponseEntity<List<UserNotificationsDTO>> getAllUserNotifications(Pageable pageable) {
+        log.debug("REST request to get a page of UserNotifications");
+        Page<UserNotificationsDTO> page = userNotificationsService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/user-notifications");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
-     * GET  /user-nofitifications/:id : get the "id" userNofitifications.
+     * GET  /user-notifications/:id : get the "id" userNotifications.
      *
-     * @param id the id of the userNofitificationsDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the userNofitificationsDTO, or with status 404 (Not Found)
+     * @param id the id of the userNotificationsDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the userNotificationsDTO, or with status 404 (Not Found)
      */
-    @GetMapping("/user-nofitifications/{id}")
+    @GetMapping("/user-notifications/{id}")
     @Timed
-    public ResponseEntity<UserNotificationsDTO> getUserNofitifications(@PathVariable Long id) {
-        log.debug("REST request to get UserNofitifications : {}", id);
-        UserNotificationsDTO userNofitificationsDTO = userNofitificationsService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(userNofitificationsDTO));
+    public ResponseEntity<UserNotificationsDTO> getUserNotifications(@PathVariable Long id) {
+        log.debug("REST request to get UserNotifications : {}", id);
+        UserNotificationsDTO userNotificationsDTO = userNotificationsService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(userNotificationsDTO));
     }
 
     /**
-     * DELETE  /user-nofitifications/:id : delete the "id" userNofitifications.
+     * DELETE  /user-notifications/:id : delete the "id" userNotifications.
      *
-     * @param id the id of the userNofitificationsDTO to delete
+     * @param id the id of the userNotificationsDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
-    @DeleteMapping("/user-nofitifications/{id}")
+    @DeleteMapping("/user-notifications/{id}")
     @Timed
-    public ResponseEntity<Void> deleteUserNofitifications(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUserNotifications(@PathVariable Long id) {
         log.debug("REST request to delete UserNotifications : {}", id);
-        userNofitificationsService.delete(id);
+        userNotificationsService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }
