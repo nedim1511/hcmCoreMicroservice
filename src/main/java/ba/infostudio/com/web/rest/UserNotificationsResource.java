@@ -1,5 +1,8 @@
 package ba.infostudio.com.web.rest;
 
+import ba.infostudio.com.domain.UserNotifications;
+import ba.infostudio.com.repository.UserNotificationsRepository;
+import ba.infostudio.com.service.mapper.UserNotificationsMapper;
 import com.codahale.metrics.annotation.Timed;
 import ba.infostudio.com.service.UserNotificationsService;
 import ba.infostudio.com.web.rest.errors.BadRequestAlertException;
@@ -36,8 +39,16 @@ public class UserNotificationsResource {
 
     private final UserNotificationsService userNotificationsService;
 
-    public UserNotificationsResource(UserNotificationsService userNotificationsService) {
+    private final UserNotificationsRepository userNotificationsRepository;
+
+    private final UserNotificationsMapper userNotificationsMapper;
+
+    public UserNotificationsResource(UserNotificationsService userNotificationsService,
+                                     UserNotificationsRepository userNotificationsRepository,
+                                     UserNotificationsMapper userNotificationsMapper) {
         this.userNotificationsService = userNotificationsService;
+        this.userNotificationsRepository = userNotificationsRepository;
+        this.userNotificationsMapper = userNotificationsMapper;
     }
 
     /**
@@ -110,6 +121,16 @@ public class UserNotificationsResource {
         UserNotificationsDTO userNotificationsDTO = userNotificationsService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(userNotificationsDTO));
     }
+
+    @GetMapping("/user-notifications/user/{userId}")
+    @Timed
+    public ResponseEntity<List<UserNotificationsDTO>> getUserNotificationsByUserId(@PathVariable Long userId) {
+        log.debug("REST request to get UserNotifications : {}", userId);
+        List<UserNotifications> userNotifications = this.userNotificationsRepository.findByIdUser(userId);
+        List<UserNotificationsDTO> userNotificationsDTO = this.userNotificationsMapper.toDto(userNotifications);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(userNotificationsDTO));
+    }
+
 
     /**
      * DELETE  /user-notifications/:id : delete the "id" userNotifications.

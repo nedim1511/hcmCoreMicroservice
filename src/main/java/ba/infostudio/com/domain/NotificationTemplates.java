@@ -15,7 +15,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "notification_templates")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class NotificationTemplates implements Serializable {
+public class NotificationTemplates extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
