@@ -10,10 +10,10 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A Usernotifications.
+ * A UserNotifications.
  */
 @Entity
-@Table(name = "user_notifications")
+@Table(name = "un")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class UserNotifications implements Serializable {
 
@@ -28,17 +28,20 @@ public class UserNotifications implements Serializable {
     @Column(name = "id_job_application", nullable = false)
     private Long id_job_application;
 
-    /*@NotNull
+    @NotNull
     @Column(name = "id_job_notification", nullable = false)
     private Long id_job_notification;
-    */
+
     @NotNull
     @Column(name = "is_read", nullable = false)
     private String is_read;
 
+    @Column(name = "id_user")
+    private Long idUser;
+
     @OneToOne(optional = false)
     @NotNull
-    @JoinColumn(name = "id_job_notification", unique = true)
+    @JoinColumn(unique = true)
     private NotificationTemplates notification_templates;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -62,7 +65,7 @@ public class UserNotifications implements Serializable {
     public void setId_job_application(Long id_job_application) {
         this.id_job_application = id_job_application;
     }
-    /*
+
     public Long getId_job_notification() {
         return id_job_notification;
     }
@@ -75,7 +78,7 @@ public class UserNotifications implements Serializable {
     public void setId_job_notification(Long id_job_notification) {
         this.id_job_notification = id_job_notification;
     }
-    */
+
     public String getIs_read() {
         return is_read;
     }
@@ -89,7 +92,20 @@ public class UserNotifications implements Serializable {
         this.is_read = is_read;
     }
 
-    public NotificationTemplates getNotification_templates() {
+    public Long getIdUser() {
+        return idUser;
+    }
+
+    public UserNotifications idUser(Long idUser) {
+        this.idUser = idUser;
+        return this;
+    }
+
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
+    }
+
+    public NotificationTemplates getNotificationTemplates() {
         return notification_templates;
     }
 
@@ -98,7 +114,7 @@ public class UserNotifications implements Serializable {
         return this;
     }
 
-    public void setNotification_templates(NotificationTemplates notification_templates) {
+    public void setNotificationTemplates(NotificationTemplates notification_templates) {
         this.notification_templates = notification_templates;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
@@ -111,11 +127,11 @@ public class UserNotifications implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        UserNotifications usernotifications = (UserNotifications) o;
-        if (usernotifications.getId() == null || getId() == null) {
+        UserNotifications userNotifications = (UserNotifications) o;
+        if (userNotifications.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), usernotifications.getId());
+        return Objects.equals(getId(), userNotifications.getId());
     }
 
     @Override
@@ -128,8 +144,9 @@ public class UserNotifications implements Serializable {
         return "UserNotifications{" +
             "id=" + getId() +
             ", id_job_application=" + getId_job_application() +
-            ", id_job_notification=" + getNotification_templates() +
+            ", id_job_notification=" + getId_job_notification() +
             ", is_read='" + getIs_read() + "'" +
+            ", idUser=" + getIdUser() +
             "}";
     }
 }

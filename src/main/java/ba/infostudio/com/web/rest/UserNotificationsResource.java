@@ -32,7 +32,7 @@ public class UserNotificationsResource {
 
     private final Logger log = LoggerFactory.getLogger(UserNotificationsResource.class);
 
-    private static final String ENTITY_NAME = "UserNotifications";
+    private static final String ENTITY_NAME = "userNotifications";
 
     private final UserNotificationsService userNotificationsService;
 

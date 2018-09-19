@@ -18,7 +18,12 @@ public class UserNotificationsDTO implements Serializable {
     private Long id_job_application;
 
     @NotNull
+    private Long id_job_notification;
+
+    @NotNull
     private String is_read;
+
+    private Long idUser;
 
     private Long notification_templatesId;
 
@@ -38,12 +43,28 @@ public class UserNotificationsDTO implements Serializable {
         this.id_job_application = id_job_application;
     }
 
+    public Long getId_job_notification() {
+        return id_job_notification;
+    }
+
+    public void setId_job_notification(Long id_job_notification) {
+        this.id_job_notification = id_job_notification;
+    }
+
     public String getIs_read() {
         return is_read;
     }
 
     public void setIs_read(String is_read) {
         this.is_read = is_read;
+    }
+
+    public Long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 
     public Long getNotification_templatesId() {
@@ -80,8 +101,9 @@ public class UserNotificationsDTO implements Serializable {
         return "UserNotificationsDTO{" +
             "id=" + getId() +
             ", id_job_application=" + getId_job_application() +
-            ", id_job_notification=" + getNotification_templatesId() +
+            ", id_job_notification=" + getId_job_notification() +
             ", is_read='" + getIs_read() + "'" +
+            ", idUser=" + getIdUser() +
             "}";
     }
 }

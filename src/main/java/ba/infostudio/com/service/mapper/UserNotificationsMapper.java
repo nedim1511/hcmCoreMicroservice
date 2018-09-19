@@ -11,10 +11,10 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {NotificationTemplatesMapper.class})
 public interface UserNotificationsMapper extends EntityMapper<UserNotificationsDTO, UserNotifications> {
 
-    @Mapping(source = "notification_templates.id", target = "notification_templatesId")
+    @Mapping(source = "notificationTemplates.id", target = "notification_templatesId")
     UserNotificationsDTO toDto(UserNotifications userNotifications);
 
-    @Mapping(source = "notification_templatesId", target = "notification_templates")
+    @Mapping(source = "notification_templatesId", target = "notificationTemplates")
     UserNotifications toEntity(UserNotificationsDTO userNotificationsDTO);
 
     default UserNotifications fromId(Long id) {
