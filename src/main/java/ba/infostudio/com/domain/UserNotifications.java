@@ -13,7 +13,7 @@ import java.util.Objects;
  * A UserNotifications.
  */
 @Entity
-@Table(name = "un")
+@Table(name = "user_notifications")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class UserNotifications implements Serializable {
 
@@ -29,10 +29,6 @@ public class UserNotifications implements Serializable {
     private Long id_job_application;
 
     @NotNull
-    @Column(name = "id_job_notification", nullable = false)
-    private Long id_job_notification;
-
-    @NotNull
     @Column(name = "is_read", nullable = false)
     private String is_read;
 
@@ -41,7 +37,7 @@ public class UserNotifications implements Serializable {
 
     @OneToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
+    @JoinColumn(name = "id_job_notification", unique = true)
     private NotificationTemplates notification_templates;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -66,18 +62,6 @@ public class UserNotifications implements Serializable {
         this.id_job_application = id_job_application;
     }
 
-    public Long getId_job_notification() {
-        return id_job_notification;
-    }
-
-    public UserNotifications id_job_notification(Long id_job_notification) {
-        this.id_job_notification = id_job_notification;
-        return this;
-    }
-
-    public void setId_job_notification(Long id_job_notification) {
-        this.id_job_notification = id_job_notification;
-    }
 
     public String getIs_read() {
         return is_read;
@@ -144,7 +128,7 @@ public class UserNotifications implements Serializable {
         return "UserNotifications{" +
             "id=" + getId() +
             ", id_job_application=" + getId_job_application() +
-            ", id_job_notification=" + getId_job_notification() +
+            ", id_job_notification=" + getNotificationTemplates() +
             ", is_read='" + getIs_read() + "'" +
             ", idUser=" + getIdUser() +
             "}";
